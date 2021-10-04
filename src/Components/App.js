@@ -78,6 +78,10 @@ class App extends Component {
     this.toggleModal();
   };
 
+  onLoadMore = () => {
+    this.setState(prevState => ({ page: prevState.page + 1 }));
+  };
+
   render() {
     const { gallery, showModal, largeImageURL, isLoading, total } = this.state;
 
