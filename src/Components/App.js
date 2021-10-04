@@ -13,7 +13,6 @@ class App extends Component {
     page: 1,
     total: 0,
     largeImageURL: {},
-    error: null,
     showModal: false,
     isLoading: false,
   };
