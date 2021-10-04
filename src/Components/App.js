@@ -3,6 +3,7 @@ import Searchbar from './searchbar/Searchbar';
 import { getPhoto } from '../services/ApiServices';
 import ImageGallery from './imageGallery/ImageGallery';
 import Modal from './modal/Modal';
+import Button from './button/Button';
 
 class App extends Component {
   state = {
@@ -24,7 +25,7 @@ class App extends Component {
       .then(({ hits, total }) => {
         console.log('hit', hits);
         this.setState(prevState => ({
-          gallery: [...hits],
+          gallery: [...prevState.gallery, ...hits],
           page: prevState.page + 1,
           total,
         }));
@@ -65,8 +66,8 @@ class App extends Component {
   };
 
   toggleModal = () => {
-    this.setState(({ showModal }) => ({
-      showModal: !showModal,
+    this.setState(prev => ({
+      showModal: !prev.showModal,
     }));
   };
 
@@ -84,7 +85,7 @@ class App extends Component {
     //   return res;
     // });
     // console.log(images);
-    const { gallery, showModal } = this.state;
+    const { gallery, showModal, largeImageURL } = this.state;
 
     return (
       <>
@@ -93,7 +94,10 @@ class App extends Component {
         {gallery.length !== 0 && (
           <ImageGallery gallery={gallery} onPictureOpen={this.onPictureOpen} />
         )}
-        {showModal && <Modal onClose={this.toggleModal} />}
+        {showModal && (
+          <Modal onClose={this.toggleModal} largeImage={largeImageURL} />
+        )}
+        {this.showBtnLoadMore() && <Button getPhoto={this.makeGallery} />}
       </>
     );
   }
