@@ -18,6 +18,17 @@ class App extends Component {
     isLoading: false,
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.find !== this.state.find) {
+      this.setState({ gallery: [] });
+      this.makeGallery();
+      return;
+    }
+    // if (prevState.find === this.state.find) {
+    //   this.makeGallery();
+    // }
+  }
+
   makeGallery = () => {
     const { find, page } = this.state;
     this.setState({ isLoading: true });
@@ -32,37 +43,18 @@ class App extends Component {
         }));
         this.scroll();
         console.log('state', this.state.gallery);
+        if (total === 0) {
+          alert('There are no pictures');
+        }
       })
-      .catch(error => this.setState({ error }))
+      .catch(error => alert(error.message))
       .finally(() => this.setState({ isLoading: false }));
   };
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.find !== this.state.find) {
-      this.setState({ gallery: [] });
-      this.makeGallery();
-      return;
-    }
-    // if (prevState.find === this.state.find) {
-    //   this.makeGallery();
-    // }
-  }
 
   onFormSubmit = find => {
     this.setState({ find });
     // this.makeGallery();
   };
-
-  // makeGallery = () => {
-  //   const { find, page } = this.state;
-  //   getPhoto(find, page)
-  //     .then(res => console.log('res', res))
-  //     .then(res => {
-  //       this.setState(prevState => ({
-  //         gallery: [...prevState.gallery, res.hits],
-  //       }));
-  //     });
-  // };
 
   scroll = () => {
     window.scrollTo({
@@ -87,11 +79,7 @@ class App extends Component {
   };
 
   render() {
-    // const images = getPhoto('war', 1).then(res => {
-    //   return res;
-    // });
-    // console.log(images);
-    const { gallery, showModal, largeImageURL, isLoading } = this.state;
+    const { gallery, showModal, largeImageURL, isLoading, total } = this.state;
 
     return (
       <>
@@ -105,7 +93,9 @@ class App extends Component {
           <Modal onClose={this.toggleModal} largeImage={largeImageURL} />
         )}
         {isLoading && <Loader />}
-        {this.showBtnLoadMore() && <Button getPhoto={this.makeGallery} />}
+        {this.showBtnLoadMore() && total !== 0 && (
+          <Button getPhoto={this.makeGallery} />
+        )}
       </>
     );
   }
