@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Button = ({ getPhoto }) => {
   return (
@@ -9,3 +10,7 @@ const Button = ({ getPhoto }) => {
 };
 
 export default Button;
+
+Button.propTypes = {
+  getPhoto: PropTypes.func.isRequired,
+};

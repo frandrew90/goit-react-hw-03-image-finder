@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const ImageGalleryItem = ({ image, largeImg, onPictureOpen }) => {
   // console.log('GalItem', image);
@@ -16,3 +17,9 @@ const ImageGalleryItem = ({ image, largeImg, onPictureOpen }) => {
 };
 
 export default ImageGalleryItem;
+
+ImageGalleryItem.propTypes = {
+  image: PropTypes.string.isRequired,
+  largeImg: PropTypes.string.isRequired,
+  onPictureOpen: PropTypes.func.isRequired,
+};
