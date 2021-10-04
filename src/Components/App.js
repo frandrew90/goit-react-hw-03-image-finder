@@ -20,7 +20,10 @@ class App extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.find !== this.state.find) {
-      this.setState({ gallery: [] });
+      this.setState({
+        gallery: [],
+        page: 1,
+      });
       this.makeGallery();
       return;
     }
