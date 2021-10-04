@@ -38,8 +38,13 @@ class App extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.find !== this.state.find) {
+      this.setState({ gallery: [] });
       this.makeGallery();
+      return;
     }
+    // if (prevState.find === this.state.find) {
+    //   this.makeGallery();
+    // }
   }
 
   onFormSubmit = find => {
