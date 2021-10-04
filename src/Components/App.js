@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Searchbar from './searchbar/Searchbar';
 import { getPhoto } from '../services/ApiServices';
 import ImageGallery from './imageGallery/ImageGallery';
+import Modal from './modal/Modal';
 
 class App extends Component {
   state = {
@@ -83,15 +84,16 @@ class App extends Component {
     //   return res;
     // });
     // console.log(images);
-    const { gallery } = this.state;
+    const { gallery, showModal } = this.state;
 
     return (
       <>
         <Searchbar onSubmit={this.onFormSubmit} />
         {console.log('render', gallery)}
         {gallery.length !== 0 && (
-          <ImageGallery gallery={gallery} openImg={this.onPictureOpen} />
+          <ImageGallery gallery={gallery} onPictureOpen={this.onPictureOpen} />
         )}
+        {showModal && <Modal onClose={this.toggleModal} />}
       </>
     );
   }
