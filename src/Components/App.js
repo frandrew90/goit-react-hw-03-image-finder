@@ -21,7 +21,7 @@ class App extends Component {
     if (prevState.find !== this.state.find) {
       this.setState({
         gallery: [],
-        page: 1,
+        // page: 1,
       });
       this.makeGallery();
       return;
@@ -54,7 +54,7 @@ class App extends Component {
   };
 
   onFormSubmit = find => {
-    this.setState({ find });
+    this.setState({ find, page: 1 });
     // this.makeGallery();
   };
 
@@ -80,9 +80,9 @@ class App extends Component {
     this.toggleModal();
   };
 
-  onLoadMore = () => {
-    this.setState(prevState => ({ page: prevState.page + 1 }));
-  };
+  // onLoadMore = () => {
+  //   this.setState(prevState => ({ page: prevState.page + 1 }));
+  // };
 
   render() {
     const { gallery, showModal, largeImageURL, isLoading, total } = this.state;
