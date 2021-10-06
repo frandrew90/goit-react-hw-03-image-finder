@@ -43,7 +43,10 @@ class App extends Component {
           page: prevState.page + 1,
           total,
         }));
-        this.scroll();
+        if (page !== 1) {
+          this.scroll();
+        }
+
         console.log('state', this.state.gallery);
         if (total === 0) {
           alert('There are no pictures');
